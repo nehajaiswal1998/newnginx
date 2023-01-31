@@ -1,0 +1,14 @@
+---
+- name: (Debian/Ubuntu) Install dependencies
+  ansible.builtin.apt:
+    name: "{{ nginx_debian_dependencies }}"
+    update_cache: true
+    state: latest 
+  when: ansible_facts['os_family'] == "Debian"
+
+- name: (Amazon Linux/CentOS/Oracle Linux/RHEL) Install dependencies
+  ansible.builtin.yum:
+    name: "{{ nginx_redhat_dependencies }}"
+    update_cache: true
+    state: latest 
+  when: ansible_facts['os_family'] == "RedHat"

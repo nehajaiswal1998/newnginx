@@ -1,0 +1,20 @@
+# Enable NGINX and NGINX modules. Default is true
+nginx_enable: true
+
+nginx_install_from: nginx_repository
+
+nginx_type: opensource
+
+nginx_setup: install
+
+nginx_manage_repo: true
+
+nginx_branch: stable
+
+nginx_version: "=1.18.0-2~focal"
+
+nginx_debug_output: false
+
+# Start NGINX service.
+# Default is true.
+#nginx_start: true

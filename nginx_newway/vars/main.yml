@@ -1,0 +1,36 @@
+---
+nginx_setup_vars: [
+  install, uninstall, upgrade,
+]
+
+nginx_default_setup: install
+
+nginx_state_vals:
+  install: present
+  uninstall: absent
+  upgrade: latest
+
+nginx_state: "{{ nginx_state_vals[nginx_setup] | default(nginx_state_vals[nginx_default_setup]) }}"
+
+
+nginx_distributions: [
+   CentOS, Debian, RedHat,  Ubuntu,
+ 
+]
+
+# Debian dependencies
+nginx_debian_dependencies: [
+  apt-transport-https, ca-certificates, gpg-agent,
+]
+
+# Red Hat dependencies
+nginx_redhat_dependencies: [
+  ca-certificates,
+]
+
+# Default NGINX signing key
+nginx_default_signing_key_pgp: https://nginx.org/keys/nginx_signing.key
+nginx_default_signing_key_rsa_pub: https://nginx.org/keys/nginx_signing.rsa.pub
+
+nginx_default_repository_debian:
+  - deb [arch={{ (ansible_facts['architecture'] == 'aarch64') | ternary('arm64', 'amd64') }} signed-by=/usr/share/keyrings/nginx-archive-keyring.gpg] https://nginx.org/packages/{{ (nginx_branch == 'mainline') | ternary('mainline/', '') }}{{ ansible_facts['distribution'] | lower }}/ {{ ansible_facts['distribution_release'] }} nginx

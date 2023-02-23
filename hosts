@@ -1,7 +1,0 @@
----
-[ubuntu]
-localhost ansible_connection=local
-# [win]
-# 3.83.176.135
-# [redhat]
-# 34.203.252.103
